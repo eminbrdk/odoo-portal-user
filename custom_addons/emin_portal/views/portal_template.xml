@@ -3,13 +3,47 @@
     <template id="portal_my_home" inherit_id="portal.portal_my_home">
         <xpath expr="//div[hasclass('o_portal_category')]" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="icon" t-value="'/emin_portal/static/src/img/download.jpg'"/>
+                <!-- <t t-set="icon" t-value="'/emin_portal/static/src/img/download.jpg'"/> -->
                 <t t-set="title">Student</t>
                 <t t-set="text">Sell your students</t>
                 <t t-set="url" t-value="'/my/students'"/>
                 <t t-set="config_card" t-value="True"/>
+                <t t-set="placeholder_count" t-value="'student_counts'"/> <!-- bu çalışmıyor -->
             </t>
         </xpath>
+    </template>
+
+    <template id="wb_student_list_view_portal">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="activate">
+                        <th class="text-center">Name</th>
+                        <th class="text-center">School</th>
+                        <th class="text-center">Roll Number</th>
+                        <th class="text-center">Fees</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="students" t-as="student">
+                        <tr>
+                            <td class="text-center">
+                                <t t-out="student.name"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="student.school_id.name"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="student.roll_number"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="student.total_fees"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
     </template>
 
 </odoo>

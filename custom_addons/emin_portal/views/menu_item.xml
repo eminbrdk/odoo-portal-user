@@ -3,6 +3,7 @@
     <menuitem name="School" id="menu_root_property_ads">
         <menuitem id="menu_property_ads" name="General">
             <menuitem id="menu_property" name="Student" action="emin_portal.action_student"/>
+            <menuitem id="menu_property2" name="School" action="emin_portal.action_school"/>
         </menuitem>
     </menuitem>
 </odoo>

@@ -10,6 +10,7 @@
 
         "views/portal_template.xml",
         "views/student_view.xml",
+        "views/school_view.xml",
         "views/menu_item.xml",
     ],
     "demo": [],
