@@ -1,0 +1,15 @@
+<odoo>
+
+    <template id="portal_my_home" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_category')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/emin_portal/static/src/img/download.jpg'"/>
+                <t t-set="title">Student</t>
+                <t t-set="text">Sell your students</t>
+                <t t-set="url" t-value="'/my/students'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem name="School" id="menu_root_property_ads">
+        <menuitem id="menu_property_ads" name="General">
+            <menuitem id="menu_property" name="Student" action="emin_portal.action_student"/>
+        </menuitem>
+    </menuitem>
+</odoo>

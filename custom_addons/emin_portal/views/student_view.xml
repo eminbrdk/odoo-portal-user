@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <!-- Ana ekranda gözükecekler -->
+        <record id="school_student_tree_view" model="ir.ui.view">
+            <field name="name">school.student.tree</field>
+            <field name="model">school.student</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- new'e basıldığında gelen ekran -->
+        <record id="school_student_form_view" model="ir.ui.view">
+            <field name="name">school.student.form</field>
+            <field name="model">school.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="name"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tıklandığında bu ekrana gelmemiz için yazılan kod -->
+        <record id="action_student" model="ir.actions.act_window"> <!-- action_property ile menu_itemda tıklama ile butaya geldik -->
+            <field name="name">Student</field>
+            <field name="res_model">school.student</field>
+            <field name="view_mode">tree,form</field> <!-- hangisini öne koyarsan onla başlarsın -->
+            <field name="view_id" ref="school_student_tree_view"/> <!-- ana ekranının id'si -->
+            <field name="help" type="html">
+                <p>
+                    Create a Student to sell :)
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
