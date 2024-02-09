@@ -59,11 +59,11 @@
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
             <li t-if="page_name == 'students_list_view'" class="breadcrumb-item">Students</li>
             <li t-if="page_name == 'student_form_view'" class="breadcrumb-item">
-                <a href="/my/students">Students</a>
+                <a href="/my/students">Students</a> / <span t-out="student.name"/>
                 <span style="margin-right: 50px;"></span> <!-- This creates space -->
-                <a t-attf-href="/my/students/{{ small_button() }}">&lt;</a>
+                <a t-attf-href="/my/students/">&lt;</a>
                 <span style="margin-right: 5px;"></span> <!-- This creates space -->
-                <a t-attf-href="/my/students/{{ big_button() }}">&gt;</a>
+                <a t-attf-href="/my/students/">&gt;</a>
             </li>
         </xpath>
     </template>
