@@ -16,3 +16,4 @@ class School(models.Model):
     _description = "Regular School"
 
     name = fields.Char(string="Name", required=True)
+    address = fields.Text(string="Address")
