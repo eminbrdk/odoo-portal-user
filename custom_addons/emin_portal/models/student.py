@@ -6,9 +6,9 @@ class Student(models.Model):
     _description = "Regular Student"
 
     name = fields.Char(string="Name", required=True)
-    roll_number = fields.Integer(string="Roll Number", required=True)
-    school_id = fields.Many2one("school", string="School")
-    total_fees = fields.Integer(string="Total Fees", required=True)
+    roll_number = fields.Integer(string="Roll Number")
+    school_id = fields.Many2one("school", string="School", required=True)
+    total_fees = fields.Integer(string="Total Fees")
 
 
 class School(models.Model):

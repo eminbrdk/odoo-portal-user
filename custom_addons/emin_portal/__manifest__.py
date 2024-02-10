@@ -14,6 +14,11 @@
         "views/menu_item.xml",
     ],
     "demo": [],
+    "assets": {
+        "web.assets_frontend": [
+            "emin_portal/static/src/js/new_student_validation.js",
+        ]
+    },
     'installable': True,
     'license': 'LGPL-3',
 }

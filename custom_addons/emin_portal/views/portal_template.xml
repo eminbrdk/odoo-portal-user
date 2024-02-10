@@ -15,6 +15,12 @@
                 <t t-set="config_card" t-value="True"/>
                 <t t-set="placeholder_count" t-value="'student_counts'"/> <!-- bu çalışmıyor -->
             </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Register Student</t>
+                <t t-set="text">Create your students</t>
+                <t t-set="url" t-value="'/new/student'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
         </xpath>
     </template>
 
@@ -59,12 +65,15 @@
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
             <li t-if="page_name == 'students_list_view'" class="breadcrumb-item">Students</li>
             <li t-if="page_name == 'student_form_view'" class="breadcrumb-item">
-                <a href="/my/students">Students</a> / <span t-out="student.name"/>
+                <a href="/my/students">Students</a>
+                /
+                <span t-out="student.name"/>
                 <span style="margin-right: 50px;"></span> <!-- This creates space -->
                 <a t-attf-href="/my/students/">&lt;</a>
                 <span style="margin-right: 5px;"></span> <!-- This creates space -->
                 <a t-attf-href="/my/students/">&gt;</a>
             </li>
+            <li t-if="page_name == 'register_student'" class="breadcrumb-item">Register Student</li>
         </xpath>
     </template>
 
@@ -85,9 +94,15 @@
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                                              alt="avatar"
                                              class="rounded-circle img-fluid" style="width: 150px;"/>
-                                        <h5 class="my-3"><t t-out="student.name"/></h5>
-                                        <p class="text-muted mb-1"><t t-out="student.school_id.name"/></p>
-                                        <p class="text-muted mb-4"><t t-out="student.school_id.address"/></p>
+                                        <h5 class="my-3">
+                                            <t t-out="student.name"/>
+                                        </h5>
+                                        <p class="text-muted mb-1">
+                                            <t t-out="student.school_id.name"/>
+                                        </p>
+                                        <p class="text-muted mb-4">
+                                            <t t-out="student.school_id.address"/>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +114,9 @@
                                                 <p class="mb-0">Full Name</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><t t-out="student.name"/></p>
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="student.name"/>
+                                                </p>
                                             </div>
                                         </div>
                                         <hr/>
@@ -108,7 +125,9 @@
                                                 <p class="mb-0">School</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><t t-out="student.school_id.name"/></p>
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="student.school_id.name"/>
+                                                </p>
                                             </div>
                                         </div>
                                         <hr/>
@@ -117,7 +136,9 @@
                                                 <p class="mb-0">Total Fees</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><t t-out="student.total_fees"/></p>
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="student.total_fees"/>
+                                                </p>
                                             </div>
                                         </div>
                                         <hr/>
@@ -126,7 +147,9 @@
                                                 <p class="mb-0">Roll Number</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><t t-out="student.roll_number"/></p>
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="student.roll_number"/>
+                                                </p>
                                             </div>
                                         </div>
                                         <hr/>
@@ -135,7 +158,9 @@
                                                 <p class="mb-0">School Address</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><t t-out="student.school_id.address"/></p>
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="student.school_id.address"/>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -148,6 +173,56 @@
 
             </t>
         </xpath>
+    </template>
+
+    <!-- Yeni student oluşturma formu -->
+    <template id="new_student_form_view_portal">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_table">
+
+                <t t-if="success">
+                    <div class="alert alert-success" role="alert">
+                        Student created successfully
+                    </div>
+                </t>
+                <t t-foreach="error_list" t-as="error">
+                    <div class="alert alert-danger" role="alert">
+                        <t t-out="error"/>
+                    </div>
+                </t>
+                <div class="alert alert-warning" role="alert" id="student_client_side_validation_message" style="display:none">
+                        client action ile yaptığımız error...
+                    </div>
+                <div id="new_student_creation">
+                <form method="post"> <!-- butona fonksiyon ekleyebilmek için bunu yaptık -->
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input name="name" type="char" id="name" class="form-control"
+                                   placeholder="Enter Student Name"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">School</label>
+                        <div class="col-sm-10">
+                            <select id="school" name="school" class="form-control">
+                                <option>Select School</option>
+                                <t t-foreach="school_list" t-as="school">
+                                    <option t-att-value="school.id"> <!-- school name gözğkecek ama school id seçilecek -->
+                                        <t t-out="school.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-goup">
+                        <button type="submit" class="btn btn-primary">Create Student</button>
+                    </div>
+                </form>
+                </div>
+            </t>
+        </t>
     </template>
 
 </odoo>
